@@ -1,0 +1,16 @@
+<h2>Registro</h2>
+<form (ngSubmit)="register()">
+  <mat-form-field appearance="fill">
+    <mat-label>Usuario</mat-label>
+    <input matInput type="text" [(ngModel)]="newUser.username" name="newUsername" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" [(ngModel)]="newUser.password" name="newPassword" required>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Registrar</button>
+</form>
+
+<p class="error-message" *NgIf="errorMessage">{{ errorMessage }}</p>
+
+<p>¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesión</a></p>

@@ -1,0 +1,51 @@
+<h2>Visualización de Entregas</h2>
+
+<mat-form-field>
+  <mat-label>Buscar</mat-label>
+  <input matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar en tabla">
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Filtrar por estado</mat-label>
+  <mat-select (selectionChange)="filtrarEstado($event.value)" value="Todos">
+    <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+
+  <!-- Cliente Column -->
+  <ng-container matColumnDef="cliente">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</th>
+    <td mat-cell *matCellDef="let row">{{ row.cliente }}</td>
+  </ng-container>
+
+  <!-- Dirección Column -->
+  <ng-container matColumnDef="direccion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+    <td mat-cell *matCellDef="let row">{{ row.direccion }}</td>
+  </ng-container>
+
+  <!-- Estado Column -->
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+    <td mat-cell *matCellDef="let row">{{ row.estado }}</td>
+  </ng-container>
+
+  <!-- Fecha Column -->
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+    <td mat-cell *matCellDef="let row">{{ row.fecha }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

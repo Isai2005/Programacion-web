@@ -1,0 +1,14 @@
+<h1>Dashboard de Entregas</h1>
+
+<div class="kpis">
+  <mat-card class="kpi-card">Total Entregas: {{ kpiTotalEntregas }}</mat-card>
+  <mat-card class="kpi-card">Pendientes: {{ kpiPendientes }}</mat-card>
+  <mat-card class="kpi-card">En Ruta: {{ kpiEnRuta }}</mat-card>
+</div>
+
+<apx-chart
+  [series]="series"
+  [chart]="chartOptions"
+  [xaxis]="xaxis"
+  [dataLabels]="dataLabels">
+</apx-chart>

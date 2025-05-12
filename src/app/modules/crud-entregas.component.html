@@ -1,0 +1,67 @@
+<mat-card>
+  <form [formGroup]="entregaForm" (ngSubmit)="guardar()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Cliente</mat-label>
+      <input matInput formControlName="cliente" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        <mat-option value="Pendiente">Pendiente</mat-option>
+        <mat-option value="En Ruta">En Ruta</mat-option>
+        <mat-option value="Entregado">Entregado</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ editando ? 'Actualizar' : 'Registrar' }}
+    </button>
+    <button mat-button type="button" (click)="resetear()">Cancelar</button>
+  </form>
+</mat-card>
+
+<mat-card *ngIf="entregas.length > 0" class="mt-4">
+  <table mat-table [dataSource]="entregas" class="mat-elevation-z8">
+
+    <!-- Cliente -->
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let row"> {{row.cliente}} </td>
+    </ng-container>
+
+    <!-- Dirección -->
+    <ng-container matColumnDef="direccion">
+      <th mat-header-cell *matHeaderCellDef> Dirección </th>
+      <td mat-cell *matCellDef="let row"> {{row.direccion}} </td>
+    </ng-container>
+
+    <!-- Estado -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let row"> {{row.estado}} </td>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button mat-button (click)="editar(i)">Editar</button>
+        <button mat-button color="warn" (click)="eliminar(i)">Eliminar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['cliente', 'direccion', 'estado', 'acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['cliente', 'direccion', 'estado', 'acciones']"></tr>
+  </table>
+</mat-card>
+<div class="export-buttons" style="margin-top: 20px;">
+  <button mat-stroked-button color="primary" (click)="exportarExcel()">Exportar a Excel</button>
+  <button mat-stroked-button color="accent" (click)="exportarPDF()">Exportar a PDF</button>
+  <button mat-stroked-button color="warn" (click)="exportarJSON()">Exportar a JSON</button>
+</div>
